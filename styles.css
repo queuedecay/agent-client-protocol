@@ -16,6 +16,11 @@
   --accent-strong: #2678d9;
 }
 
+.theme-neutral {
+  --accent: #9b8cf2;
+  --accent-strong: #7563d9;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -98,6 +103,10 @@ h1 {
 
 .variant-card.blue {
   --accent: #4f9df8;
+}
+
+.variant-card.neutral {
+  --accent: #9b8cf2;
 }
 
 .variant-card span {
@@ -272,4 +281,61 @@ button:hover {
   border-color: var(--accent);
   background: transparent;
   color: var(--text);
+}
+
+.bridge-status {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.bridge-status[data-status="connected"] {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+  color: var(--text);
+}
+
+.bridge-status[data-status="error"],
+.bridge-status[data-status="disconnected"] {
+  border-color: #e0554f;
+  color: #f2a29d;
+}
+
+.permission-region:empty {
+  display: none;
+}
+
+.permission-prompt {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.comparison-table thead th {
+  color: var(--accent);
+}
+
+.comparison-table tbody th {
+  color: var(--muted);
+  white-space: nowrap;
 }

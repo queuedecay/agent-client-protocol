@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copilot SDK vs. ACP Comparison</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="theme-neutral">
+    <main class="chat-shell" aria-labelledby="page-title">
+      <header class="chat-header">
+        <a href="index.html" class="back-link">← Harnesses</a>
+        <p class="eyebrow">Neutral prototype</p>
+        <h1 id="page-title">Copilot SDK vs. Agent Client Protocol</h1>
+        <p>
+          A side-by-side look at the two chat harnesses in this repo, and the design choices behind each. Static
+          documentation only — no bridge, network access, or secrets required to view this page.
+        </p>
+      </header>
+
+      <section class="history-card" aria-labelledby="table-title">
+        <h2 id="table-title">At a glance</h2>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">GitHub Copilot SDK</th>
+              <th scope="col">Agent Client Protocol (ACP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Origin</th>
+              <td>GitHub's official SDK for embedding Copilot CLI/agent sessions in your own app</td>
+              <td>Open, editor-agnostic protocol originated at Zed Industries, now <code>@agentclientprotocol/sdk</code></td>
+            </tr>
+            <tr>
+              <th scope="row">Transport</th>
+              <td>Local stdio protocol between the SDK and the <code>copilot</code> CLI process</td>
+              <td>Local stdio JSON-RPC 2.0 between a client and any ACP-compliant agent process</td>
+            </tr>
+            <tr>
+              <th scope="row">Scope</th>
+              <td>Tied to GitHub Copilot specifically</td>
+              <td>Protocol-first: any agent can implement the server side; any editor can implement the client side</td>
+            </tr>
+            <tr>
+              <th scope="row">Session model</th>
+              <td><code>createSession()</code> → <code>session.send({ prompt })</code> → <code>assistant.message</code> events</td>
+              <td><code>initialize</code> → <code>session/new</code> → <code>session/prompt</code> → <code>sessionUpdate</code> notifications</td>
+            </tr>
+            <tr>
+              <th scope="row">Extensibility</th>
+              <td>Tool registration is Copilot-specific</td>
+              <td>First-class tool calls, plan/step updates, and a <code>requestPermission</code> handshake built into the protocol</td>
+            </tr>
+            <tr>
+              <th scope="row">Vendor lock-in</th>
+              <td>Coupled to GitHub Copilot</td>
+              <td>Same client code can talk to multiple agents by swapping the spawned command</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="history-card" aria-labelledby="bridge-title">
+        <h2 id="bridge-title">Why both need a local bridge</h2>
+        <p>
+          Both SDKs are Node-only, stdio-oriented libraries — neither is meant to run directly in a browser. Both
+          harness pages talk to a small local Node "bridge" over WebSocket rather than importing an SDK into browser
+          JavaScript. This keeps the security model identical between the two variants: everything sensitive (CLI
+          auth, API keys, subprocess spawning) stays server-side on <code>127.0.0.1</code>, and the browser only ever
+          sees relayed, already-sanitized JSON messages. See
+          <a href="COPILOT-SDK-INTEGRATION.md">COPILOT-SDK-INTEGRATION.md</a> and
+          <a href="ACP-INTEGRATION.md">ACP-INTEGRATION.md</a> for the full designs.
+        </p>
+      </section>
+
+      <section class="history-card" aria-labelledby="ui-title">
+        <h2 id="ui-title">What's different in the UI</h2>
+        <p>
+          The <a href="copilot.html">Copilot variant</a> renders a flat stream of user/assistant message bubbles —
+          modeled on a simple back-and-forth chat. The <a href="acp.html">ACP variant</a> additionally distinguishes
+          assistant text, tool-call notifications, and plan/step updates as separate message kinds, and adds an
+          inline permission-approval control — modeled on ACP's richer <code>sessionUpdate</code> stream and its
+          explicit <code>requestPermission</code> handshake. This mirrors how VS Code's built-in Agent Harness
+          presents plain assistant replies alongside tool invocations and permission prompts in one unified timeline.
+        </p>
+      </section>
+
+      <section class="history-card" aria-labelledby="prefer-title">
+        <h2 id="prefer-title">When to prefer which</h2>
+        <p>
+          Prefer the <strong>Copilot SDK</strong> path when you specifically want GitHub Copilot's models/agent and
+          don't need to swap in other agents. Prefer <strong>ACP</strong> when you want an editor/UI that can point at
+          multiple different agent backends without rewriting the client, or when you're building tooling that should
+          work with any ACP-compliant agent, not just one vendor's.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

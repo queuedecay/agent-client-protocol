@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Copilot Chat SDK Harness</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <script src="copilot.js" defer></script>
   </head>
   <body class="theme-pink">
     <main class="chat-shell" data-chat-harness="GitHub Copilot Chat SDK" aria-labelledby="page-title">
@@ -13,7 +13,8 @@
         <a href="index.html" class="back-link">← Harnesses</a>
         <p class="eyebrow">Pink prototype</p>
         <h1 id="page-title">GitHub Copilot Chat SDK Harness</h1>
-        <p>Static echo-only page. No credentials, SDK keys, tokens, or network calls are used.</p>
+        <p>Connects to a local bridge server (see <code>COPILOT-SDK-INTEGRATION.md</code>) that relays prompts to a real GitHub Copilot SDK session. No credentials, SDK keys, or tokens are stored in this page — everything sensitive stays in the bridge process on your own machine.</p>
+        <p class="bridge-status" data-bridge-status data-status="connecting">Connecting to local Copilot SDK bridge…</p>
       </header>
 
       <section class="controls" aria-label="Chat setup">

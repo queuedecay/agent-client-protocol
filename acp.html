@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Agent Client Protocol Harness</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <script src="acp.js" defer></script>
   </head>
   <body class="theme-blue">
     <main class="chat-shell" data-chat-harness="Agent Client Protocol" aria-labelledby="page-title">
@@ -13,8 +13,11 @@
         <a href="index.html" class="back-link">← Harnesses</a>
         <p class="eyebrow">Blue prototype</p>
         <h1 id="page-title">Agent Client Protocol Harness</h1>
-        <p>Static echo-only page. No credentials, ACP endpoints, tokens, or network calls are used.</p>
+        <p>Connects to a local bridge server (see <code>ACP-INTEGRATION.md</code>) that relays prompts to a real Agent Client Protocol session. No credentials, endpoints, or tokens are stored in this page — everything sensitive stays in the bridge process on your own machine.</p>
+        <p class="bridge-status" data-bridge-status data-status="connecting">Connecting to local ACP bridge…</p>
       </header>
+
+      <section class="permission-region" data-permission-request aria-live="polite" aria-label="Agent permission requests"></section>
 
       <section class="controls" aria-label="Chat setup">
         <label>

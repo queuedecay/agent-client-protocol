@@ -1,0 +1,17 @@
+{
+  "name": "agent-client-protocol-bridges",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-only bridge processes that relay the static chat harness pages to the GitHub Copilot SDK and the Agent Client Protocol SDK over WebSocket. Never deploy this server publicly.",
+  "type": "module",
+  "scripts": {
+    "copilot-bridge": "node copilot-bridge.mjs",
+    "acp-bridge": "node acp-bridge.mjs"
+  },
+  "dependencies": {
+    "@agentclientprotocol/sdk": "^1.4.0",
+    "@github/copilot-sdk": "^1.0.11",
+    "dotenv": "^16.4.5",
+    "ws": "^8.18.0"
+  }
+}
