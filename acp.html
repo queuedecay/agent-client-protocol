@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Client Protocol Harness</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="theme-blue">
+    <main class="chat-shell" data-chat-harness="Agent Client Protocol" aria-labelledby="page-title">
+      <header class="chat-header">
+        <a href="index.html" class="back-link">← Harnesses</a>
+        <p class="eyebrow">Blue prototype</p>
+        <h1 id="page-title">Agent Client Protocol Harness</h1>
+        <p>Static echo-only page. No credentials, ACP endpoints, tokens, or network calls are used.</p>
+      </header>
+
+      <section class="controls" aria-label="Chat setup">
+        <label>
+          Model
+          <select data-model>
+            <option>GPT-4.1</option>
+            <option>Claude Sonnet 4</option>
+            <option>Local Mock Model</option>
+          </select>
+        </label>
+        <label>
+          Session type
+          <select data-session-type>
+            <option>Agent</option>
+            <option>Plan</option>
+            <option>Ask</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="history-card" aria-labelledby="history-title">
+        <h2 id="history-title">Chat session history</h2>
+        <div class="chat-history" data-history role="log" aria-live="polite" aria-label="Chat messages">
+          <p class="empty-state" data-empty-state>Send a prompt to start an echo-only chat session.</p>
+        </div>
+      </section>
+
+      <form class="prompt-form" data-chat-form>
+        <label for="prompt">User prompt</label>
+        <textarea id="prompt" data-prompt rows="6" maxlength="4000" placeholder="Ask for a plan, agent task, or quick answer…" required></textarea>
+        <div class="form-actions">
+          <button type="reset" class="secondary-button">Clear prompt</button>
+          <button type="submit">Echo prompt</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
